@@ -1,4 +1,4 @@
-import './App.css';
+ import './App.css';
 
 import React, { useEffect, useState } from 'react';
 import BackTop from './components/backTop';
@@ -11,10 +11,11 @@ import { Fab, Grid, Typography } from '@mui/material'
 import { Container } from '@mui/system';
 import { Bodysensor } from './components/HeaderSensor/bodysensor';
 import { onValue } from "firebase/database";
-import { dataAnalogRead, dataAlcohol } from './components/firebaseConec/firebase';
+import { dataAnalogRead, dataAlcohol,dataSensor} from './components/firebaseConec/firebase';
 import { BodyEsp32 } from './components/HeaderSensor/bodyEsp32';
 import RenderLineChart from './components/graphic/graphic';
 import {CalidadAire,AirLowHealty,Warning} from './components/HeaderSensor/calidadAire';
+import { HeaderSensorVibracion } from './components/HeaderSensorVibarcion/HeaderSensorVibracion';
 
 function scrolleventFab() {
   document.querySelector(".scrollEventFab").scrollIntoView()
@@ -50,6 +51,7 @@ export default function App() {
   const [voltajeSensor, setvoltajeSensor] = useState(0)
   const [alcoholDetectedGraphic, setalcoholDetectedGraphic] = useState([]);
   const [AlcoholPrint, setAlcoholPrint] = useState(0);
+  const [sensorVibration, setsensorVibration] = useState(false);
 
   const [render, setrender] = useState(false)
 const [renderT, setrenderT] = useState(false)
@@ -73,9 +75,20 @@ const [renderWarn, setrenderWarn] = useState(false)
     })
 
     onValue(dataAlcohol, (snapshotFirebaseAlcohol) => {
-      setalcoholDetectedGraphic((prev) => [...prev, snapshotFirebaseAlcohol._node.value_.toFixed(2)])
+      setalcoholDetectedGraphic((prev) => {
+        const renderGraphic= [...prev, snapshotFirebaseAlcohol._node.value_.toFixed(2)]
+        if (renderGraphic.length>12) {
+          renderGraphic.shift()
+        }
+        return renderGraphic
+      })
       setAlcoholPrint(snapshotFirebaseAlcohol._node.value_)
     })
+    
+    onValue(dataSensor, (snapshotFirebase) => {
+      setsensorVibration(snapshotFirebase._node.value_)
+    })
+
     const handleCallFunctionsScroll = () => {
       ScrollEventInfo()
       ScrollPrintDataSensor()
@@ -87,15 +100,14 @@ const [renderWarn, setrenderWarn] = useState(false)
     return () => {
       window.removeEventListener('scroll', handleCallFunctionsScroll)
     }
-
+    
   
 }, [])
-
 
   return (
     <div className="container">
       <header className="header">
-        <Header title={" Calidad De Aire "} />
+        <Header title={"Vivienda Domótica"} />
         <BackTop color="primary" />
         <CarouselHeader />
         <Container sx={{ marginTop: '-5vmin', position: 'relative' }} maxWidth={false} >
@@ -157,6 +169,7 @@ const [renderWarn, setrenderWarn] = useState(false)
             {render && <CalidadAire/>}
             {renderT && <AirLowHealty/>}
             {renderWarn && <Warning/>}
+            <HeaderSensorVibracion data={sensorVibration}/>
 
           </CustomPaperContainer>
         </Container>

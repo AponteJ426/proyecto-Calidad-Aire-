@@ -3,11 +3,9 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';  
+import Container from '@mui/material/Container';
 import { CustomAppBar } from './styled';
 import useScrollTrigger from '@mui/material/useScrollTrigger';
-import AirIcon from '@mui/icons-material/Air';
-
 
 
 
@@ -30,27 +28,31 @@ export const Header = ({ title }, props) => {
   return (
     <>
       <ElevationScroll {...props}>
-        <CustomAppBar sx={{ maxWidth: '90%', mr: '4.9%',  }}>
+        <CustomAppBar sx={{ maxWidth: '90%', mr: '4.9%', }}>
           <Container >
-            <Toolbar disableGutters sx={{display:"flex", justifyContent:"space-around"}}>
-              <Typography
-                variant="h6"
-                noWrap
-                component="div"
-                sx={{ mr: 2, display: { xs: 'none', md: 'flex', marginLeft: '2vmin' } }}
+            <Toolbar disableGutters sx={{ display: "flex", justifyContent: "space-around" }}>
+              <Box sx={{ flexGrow: 0, background: "#f8f8f8", borderRadius: 40 }}>
+                <img src='/logoU.png' alt='Logo' height={50} width={110} />
+              </Box>
+              <Box
+              sx={{ display: "flex", justifyContent: "center"}}
               >
-               
-                  <AirIcon />
-       
-                {" "+ title}
-              </Typography>
-              <Box sx={{ flexGrow: 0 }}>
-                <img src='/logoU.png' alt='Logo' height={50} />
+                <Typography
+                  variant="h6"
+                  noWrap
+                  component="div"
+                  sx={{ mr: 1, display: { xs: 'none', md: 'flex' } }}>
+                  {title}
+                </Typography>
+                <Typography
+                  sx={{ fontFamily: "revert-layer",display:"flex",alignItems:"center"}}>
+                  V(0.2)
+                </Typography>
               </Box>
             </Toolbar>
           </Container>
         </CustomAppBar>
-      </ElevationScroll>
+      </ElevationScroll >
     </>
   );
 };

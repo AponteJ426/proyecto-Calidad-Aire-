@@ -1,4 +1,4 @@
-import { getDatabase, ref } from "firebase/database";
+import { getDatabase, ref,set } from "firebase/database";
 import { initializeApp } from "firebase/app";
 
 const firebaseConfig = {
@@ -13,7 +13,13 @@ const firebaseConfig = {
   };
   
   const app = initializeApp(firebaseConfig);
-  const db = getDatabase(app);
-  export const dataAnalogRead = ref(db, 'alcohol/analogRead');
-  export const dataAlcohol = ref(db, 'alcohol/porcentaje');
+  export const db = getDatabase(app);
+  export const dataAnalogRead = ref(db, '/alcohol/analog');
+  export const dataAlcohol = ref(db, '/alcohol/porcentaje'); 
+  // export const dataSensor  = ref(db, '/vibracion/all'); 
+  export const dataSensor = ref(db, '/switch/normal'); 
+
+  
+
+
   

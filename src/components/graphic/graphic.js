@@ -10,16 +10,15 @@ import {
     Legend
   } from "recharts";
 
-
 export default function RenderLineChart({ data }) {
 
     let value = data.map((val,index) => {
         return (
             {
-                name: (index*5/60).toFixed(1)+"m",
+                nameX: (index*5/60).toFixed(1)+"s",
                 mgL: val,
-                pv: 200,
-                amt: 2400         
+                pv: 100,
+                amt: 2200         
             }
         )
     })
@@ -30,10 +29,12 @@ export default function RenderLineChart({ data }) {
 
 
 
+      
+
 
     <LineChart
     width={1250}
-    height={600}
+    height={700}
     data={value}
     margin={{
       top: 5,
@@ -42,15 +43,15 @@ export default function RenderLineChart({ data }) {
       bottom: 5
     }}
   >
-    <CartesianGrid strokeDasharray="3 3" />
-    <XAxis dataKey="name" />
-    <YAxis />
+    <CartesianGrid strokeDasharray="2 3" />
+    <XAxis dataKey="nameX" />
+    <YAxis dataKey= {(value.mgLbcx  +0.1)} />
     <Tooltip />
     <Legend />
     <Line
       type="natural"
       dataKey="mgL"
-      stroke="#FF5632"
+      stroke="#ff0000"
       strokeDasharray="5 5"
     />
   </LineChart>
