@@ -22,7 +22,7 @@ export default function CarouselHeader() {
                 <img src="/image2.png" height={650} alt="Imagenes proyecto" />
             </div>
             <div>
-                <img src="/image3.png" height={650} alt="Imagenes proyecto" />
+                <img src="/logoU.png" height={650} alt="Imagenes proyecto" />
             </div>
         </Carousel>
     );

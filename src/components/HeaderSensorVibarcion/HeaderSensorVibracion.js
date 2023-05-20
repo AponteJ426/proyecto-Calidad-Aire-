@@ -64,7 +64,7 @@ export const HeaderSensorVibracion = ({ data }) => {
                         activar circuito
                     </Button>
                     <Button variant="contained" color="error" onClick={setDtbALamr} disabled={data === 0 ? true : false} sx={{ margin: 5,width:"80%" }}>
-                        DesacAlarma
+                        Desactivar Alarma
                     </Button>
                 </Grid>
             </Grid>
