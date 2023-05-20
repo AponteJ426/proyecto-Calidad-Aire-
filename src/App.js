@@ -1,4 +1,4 @@
- import './App.css';
+import './App.css';
 
 import React, { useEffect, useState } from 'react';
 import BackTop from './components/backTop';
@@ -11,11 +11,12 @@ import { Fab, Grid, Typography } from '@mui/material'
 import { Container } from '@mui/system';
 import { Bodysensor } from './components/HeaderSensor/bodysensor';
 import { onValue } from "firebase/database";
-import { dataAnalogRead, dataAlcohol,dataSensor} from './components/firebaseConec/firebase';
+import { dataAnalogRead, dataAlcohol, dataSensor } from './components/firebaseConec/firebase';
 import { BodyEsp32 } from './components/HeaderSensor/bodyEsp32';
 import RenderLineChart from './components/graphic/graphic';
-import {CalidadAire,AirLowHealty,Warning} from './components/HeaderSensor/calidadAire';
+import { CalidadAire, AirLowHealty, Warning } from './components/HeaderSensor/calidadAire';
 import { HeaderSensorVibracion } from './components/HeaderSensorVibarcion/HeaderSensorVibracion';
+import { GraphicD } from './components/graphic/graphicD';
 
 function scrolleventFab() {
   document.querySelector(".scrollEventFab").scrollIntoView()
@@ -54,37 +55,37 @@ export default function App() {
   const [sensorVibration, setsensorVibration] = useState(false);
 
   const [render, setrender] = useState(false)
-const [renderT, setrenderT] = useState(false)
-const [renderWarn, setrenderWarn] = useState(false)
+  const [renderT, setrenderT] = useState(false)
+  const [renderWarn, setrenderWarn] = useState(false)
 
   useEffect(() => {
     onValue(dataAnalogRead, (snapshotFirebase) => {
       setanalogReadSensor(snapshotFirebase._node.value_)
       setrender(
-        snapshotFirebase._node.value_<=1000?
-        true:
-        false)
+        snapshotFirebase._node.value_ <= 1000 ?
+          true :
+          false)
       setrenderT(
-        snapshotFirebase._node.value_>1000&&snapshotFirebase._node.value_<1800?
-        true:
-        false )
-        setrenderWarn(
-          snapshotFirebase._node.value_>=1800
-        )
+        snapshotFirebase._node.value_ > 1000 && snapshotFirebase._node.value_ < 1800 ?
+          true :
+          false)
+      setrenderWarn(
+        snapshotFirebase._node.value_ >= 1800
+      )
       setvoltajeSensor(snapshotFirebase._node.value_ * (5.0 / 10023.0))
     })
 
     onValue(dataAlcohol, (snapshotFirebaseAlcohol) => {
       setalcoholDetectedGraphic((prev) => {
-        const renderGraphic= [...prev, snapshotFirebaseAlcohol._node.value_.toFixed(2)]
-        if (renderGraphic.length>12) {
+        const renderGraphic = [...prev, snapshotFirebaseAlcohol._node.value_.toFixed(2)]
+        if (renderGraphic.length > 12) {
           renderGraphic.shift()
         }
         return renderGraphic
       })
       setAlcoholPrint(snapshotFirebaseAlcohol._node.value_)
     })
-    
+
     onValue(dataSensor, (snapshotFirebase) => {
       setsensorVibration(snapshotFirebase._node.value_)
     })
@@ -94,15 +95,15 @@ const [renderWarn, setrenderWarn] = useState(false)
       ScrollPrintDataSensor()
       ScrollEventEsp32()
       RenderFab()
-      
+
     }
     window.addEventListener('scroll', handleCallFunctionsScroll)
     return () => {
       window.removeEventListener('scroll', handleCallFunctionsScroll)
     }
-    
-  
-}, [])
+
+
+  }, [])
 
   return (
     <div className="container">
@@ -110,7 +111,7 @@ const [renderWarn, setrenderWarn] = useState(false)
         <Header title={"Vivienda Domótica"} />
         <BackTop color="primary" />
         <CarouselHeader />
-        <Container sx={{ marginTop: '-5vmin', position: 'relative' }} maxWidth={false} >
+        <Container sx={{ marginTop: '-5vmin', position: 'relative', minWidth:"180vmin"}}  >
           <CustomPaperContainer elevation={24}  >
             <Typography variant="h1" component="div" sx={{ margin: "0.5vmin", marginTop: 0 }}>
               ! Empecemos ¡
@@ -165,12 +166,12 @@ const [renderWarn, setrenderWarn] = useState(false)
               <KeyboardArrowDownRoundedIcon fontSize='medium' />
             </Fab>
             <BodyEsp32 />
-            <RenderLineChart data={alcoholDetectedGraphic}/>
-            {render && <CalidadAire/>}
-            {renderT && <AirLowHealty/>}
-            {renderWarn && <Warning/>}
-            <HeaderSensorVibracion data={sensorVibration}/>
-
+            <RenderLineChart data={alcoholDetectedGraphic} />
+            {render && <CalidadAire />}
+            {renderT && <AirLowHealty />}
+            {renderWarn && <Warning />}
+            <HeaderSensorVibracion data={sensorVibration} />
+            <GraphicD />
           </CustomPaperContainer>
         </Container>
       </header>
