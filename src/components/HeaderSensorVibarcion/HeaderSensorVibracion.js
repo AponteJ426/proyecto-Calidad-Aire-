@@ -10,6 +10,7 @@ export const HeaderSensorVibracion = ({ data }) => {
     const [sensorOne, setsensorOne] = useState();
     const [sensorTwo, setsensorTwo] = useState();
     const [sensorThree, setsensorThree] = useState();
+
     useEffect(() => {
         onValue(ref(db, "/vibracion/sensorUno"), (snapshotFirebase) => {
             setsensorOne(snapshotFirebase._node.value_)
@@ -30,9 +31,14 @@ export const HeaderSensorVibracion = ({ data }) => {
                 <Typography variant='h3' component="h3">
                     {name}
                 </Typography>
-                <Typography variant='h2' component="h2">
-                    {signal}
+                {signal===1?
+                <Typography variant='h2' component="h2" sx={{color:"green"}}>
+                    On
+                </Typography>:
+                <Typography variant='h2' component="h2" sx={{color:"red"}}>
+                    Off
                 </Typography>
+                }
             </Grid>
         )
     }
