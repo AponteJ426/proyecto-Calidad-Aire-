@@ -17,6 +17,7 @@ import RenderLineChart from './components/graphic/graphic';
 import { CalidadAire, AirLowHealty, Warning } from './components/HeaderSensor/calidadAire';
 import { HeaderSensorVibracion } from './components/HeaderSensorVibarcion/HeaderSensorVibracion';
 import { GraphicD } from './components/graphic/graphicD';
+import Footer from './components/footer/footer';
 
 function scrolleventFab() {
   document.querySelector(".scrollEventFab").scrollIntoView()
@@ -174,6 +175,7 @@ export default function App() {
             <GraphicD />
           </CustomPaperContainer>
         </Container>
+        <Footer/> 
       </header>
     </div>
   )
