@@ -1,4 +1,5 @@
 
+import { Grid } from "@mui/material";
 import React from "react";
 import {
     LineChart,
@@ -31,10 +32,11 @@ export default function RenderLineChart({ data }) {
 
       
 
-
+<Grid container
+ sx={{padding:"1rem"}}>
     <LineChart
-    width={1250}
-    height={700}
+    width={900}
+    height={400}
     data={value}
     margin={{
       top: 5,
@@ -55,7 +57,7 @@ export default function RenderLineChart({ data }) {
       strokeDasharray="5 5"
     />
   </LineChart>
-     
+    </Grid> 
     );
 }
 

@@ -16,8 +16,8 @@ import { BodyEsp32 } from './components/HeaderSensor/bodyEsp32';
 import RenderLineChart from './components/graphic/graphic';
 import { CalidadAire, AirLowHealty, Warning } from './components/HeaderSensor/calidadAire';
 import { HeaderSensorVibracion } from './components/HeaderSensorVibarcion/HeaderSensorVibracion';
-import { GraphicD } from './components/graphic/graphicD';
 import Footer from './components/footer/footer';
+import HeaderSenIlt from './components/HeaderSenUlt/headerSenIlt';
 
 function scrolleventFab() {
   document.querySelector(".scrollEventFab").scrollIntoView()
@@ -54,7 +54,6 @@ export default function App() {
   const [alcoholDetectedGraphic, setalcoholDetectedGraphic] = useState([]);
   const [AlcoholPrint, setAlcoholPrint] = useState(0);
   const [sensorVibration, setsensorVibration] = useState(false);
-
   const [render, setrender] = useState(false)
   const [renderT, setrenderT] = useState(false)
   const [renderWarn, setrenderWarn] = useState(false)
@@ -112,22 +111,21 @@ export default function App() {
         <Header title={"Vivienda Domótica"} />
         <BackTop color="primary" />
         <CarouselHeader />
-        <Container sx={{ marginTop: '-5vmin', position: 'relative', minWidth:"180vmin"}}  >
-          <CustomPaperContainer elevation={24}  >
-            <Typography variant="h1" component="div" sx={{ margin: "0.5vmin", marginTop: 0 }}>
-              ! Empecemos ¡
-              <Typography variant="h5" component="div" sx={{ margin: "0vmin", }} className="scrollEventFab">
-              </Typography>
-            </Typography>
+        <Container sx={{ marginTop: '-5vmin', width: "80%" }}  >
             <Fab
               size="medium"
               color='grey'
               onClick={scrolleventFab}
               aria-label="scroll"
               className="animate__animated animate__bounce animate__infinite FabToStart"
-            >
+            />
+          <CustomPaperContainer elevation={24}  >
+            <Typography variant="h1" component="div" sx={{ margin: "0.5vmin", marginTop: 0 }}>
+              ! Empecemos ¡
+              <Typography variant="h5" component="div" sx={{ margin: "0vmin", }} className="scrollEventFab">
+              </Typography>
+            </Typography>
               <KeyboardArrowDownRoundedIcon fontSize='medium' />
-            </Fab>
             <Bodysensor />
 
             <Grid container sx={{
@@ -172,10 +170,18 @@ export default function App() {
             {renderT && <AirLowHealty />}
             {renderWarn && <Warning />}
             <HeaderSensorVibracion data={sensorVibration} />
-            <GraphicD />
+
+            <Typography variant="h2" component="div" sx={{ 
+              textAlign: 'start',
+              fontSize: "rem",
+              margin:"50px",
+          }}>
+            Garaje Automatico
+            </Typography>
+            <HeaderSenIlt />
           </CustomPaperContainer>
         </Container>
-        <Footer/> 
+        <Footer />
       </header>
     </div>
   )

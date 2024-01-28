@@ -18,6 +18,7 @@ const firebaseConfig = {
   export const dataAlcohol = ref(db, '/alcohol/porcentaje'); 
   // export const dataSensor  = ref(db, '/vibracion/all'); 
   export const dataSensor = ref(db, '/switch/normal'); 
+  export const senUltr = ref(db, '/ultrasonido/distanci'); 
 
   
 

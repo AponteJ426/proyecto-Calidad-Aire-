@@ -66,11 +66,12 @@ export const HeaderSensorVibracion = ({ data }) => {
                 </Grid>
                 <Grid item xs={5}
                  sx={{ display: "flex", flexDirection: "column", alignItems: "center", marginBottom: "7rem",boxShadow: 5, background: "#e8e8e8", borderRadius: 5,}} >
-                    <Button variant="contained" color="success" onClick={setDtb} disabled={data === 1 ? true : false} sx={{ margin: 5, marginTop: 10,width:"80%"   }}>
-                        activar circuito
+                    <Button variant="contained" color="error" onClick={setDtb} disabled={data === 1 ? true : false} sx={{ margin: 5, marginTop: 10,width:"80%"   }}>
+                    Desactivar Alarma
+
                     </Button>
-                    <Button variant="contained" color="error" onClick={setDtbALamr} disabled={data === 0 ? true : false} sx={{ margin: 5,width:"80%" }}>
-                        Desactivar Alarma
+                    <Button variant="contained" color="success" onClick={setDtbALamr} disabled={data === 0 ? true : false} sx={{ margin: 5,width:"80%" }}>
+                        Ativar Circuito
                     </Button>
                 </Grid>
             </Grid>
